@@ -4,6 +4,8 @@ import { ToastContainer } from "react-toastify";
 import AuthService from "../../services/AuthService";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { showErrorToast, showSuccessToast } from "../../helpers/utils/toastUtils";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../redux/slices/AuthSlice";
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -13,6 +15,7 @@ function Login() {
     const [errors, setErrors] = useState({});
     const location = useLocation();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -35,7 +38,13 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validateForm()) {
-            const response = await AuthService.login(formData.email, formData.password)
+            const response = await AuthService.login(formData.email, formData.password);
+            console.log(response);
+            
+            dispatch(authActions.login({
+                token: response.access_token,
+                user: response.user
+            }));
         }
     }
 
