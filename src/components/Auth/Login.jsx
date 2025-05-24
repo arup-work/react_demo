@@ -39,7 +39,6 @@ function Login() {
         e.preventDefault();
         if (validateForm()) {
             const response = await AuthService.login(formData.email, formData.password);
-            console.log(response);
             
             dispatch(authActions.login({
                 token: response.access_token,
@@ -96,6 +95,14 @@ function Login() {
                 </FormControl>
             </FormGroup>
             <Button variant="contained" color="primary" fullWidth type="submit">Login</Button>
+            <Typography sx={{ marginTop: 2 }} textAlign="center">
+                <Link
+                    to="/forgot-password"
+                    style={{ textDecoration: "none", color: "#1976d2" }}
+                >
+                    Forget password
+                </Link>
+            </Typography>
             <Typography sx={{ marginTop: 2 }} textAlign="center">
                 Don't have an account?{" "}
                 <Link
