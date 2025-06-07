@@ -4,6 +4,7 @@ import Register from "../components/Auth/Register"
 import { useSelector } from "react-redux";
 import Dashboard from "../views/Dashboard";
 import ForgotPassword from "../components/Auth/ForgotPassword";
+import ResetPassword from "../components/Auth/ResetPassword";
 
 const AppRoutes = () => {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -21,6 +22,10 @@ const AppRoutes = () => {
                 <Route
                     path="/forgot-password"
                     element={!isAuthenticated ? <ForgotPassword /> : <Navigate to="/dashboard" />}
+                />
+                <Route
+                    path="/reset-password"
+                    element={!isAuthenticated ? <ResetPassword /> : <Navigate to="/dashboard" />}
                 />
 
                 <Route
